@@ -1,0 +1,36 @@
+{
+    "name": "C++ Shared Mem Env",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "runArgs": [
+        "--cap-add=SYS_PTRACE",
+        "--security-opt", "seccomp=unconfined"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cmake-tools",
+                "twxs.cmake",
+                "vadimcn.vscode-lldb",
+                "vscodevim.vim",       
+                "GitHub.copilot",       
+                "GitHub.copilot-chat"
+            ],
+            "settings": {
+                "editor.formatOnSave": true,
+                "[cpp]": {
+                    "editor.defaultFormatter": "ms-vscode.cpptools"
+                },
+                "[c]": {
+                    "editor.defaultFormatter": "ms-vscode.cpptools"
+                },
+                "C_Cpp.formatting": "clangFormat",
+                "C_Cpp.clang_format_path": "/usr/bin/clang-format",
+                "C_Cpp.clang_format_fallbackStyle": "Google"
+            }
+        }
+    },
+    "remoteUser": "root"
+}
