@@ -13,7 +13,9 @@ RUN apt-get update && apt-get install -y \
     wget \
     gcc-14 \
     g++-14 \
+    libgtest-dev \
     clang-format \
+    clang-tidy \
     && rm -rf /var/lib/apt/lists/*
 
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100 \
