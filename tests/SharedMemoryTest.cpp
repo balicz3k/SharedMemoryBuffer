@@ -6,6 +6,8 @@
 #include <memory>
 #include <smb/SharedMemory.hpp>
 
+namespace smb
+{
 class SharedMemoryTest : public ::testing::Test
 {
 protected:
@@ -17,7 +19,7 @@ protected:
 TEST_F(SharedMemoryTest, basicScenario)
 {
     uint64_t sampleData{12345u};
-    smb::SharedMemory sharedMemory(shmName.data(), sizeof(sampleData));
+    SharedMemory sharedMemory(shmName.data(), sizeof(sampleData));
     auto schearedData{sharedMemory.getData()};
     const auto schearedDataSize{sharedMemory.size()};
 
@@ -28,3 +30,4 @@ TEST_F(SharedMemoryTest, basicScenario)
     const auto* fetchedData = std::bit_cast<const uint64_t*>(schearedData);
     EXPECT_EQ(sampleData, *fetchedData);
 }
+}  // namespace smb

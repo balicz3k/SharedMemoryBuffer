@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
     gcc-14 \
     g++-14 \
     libgtest-dev \
+    libgmock-dev \
     clang-format \
     clang-tidy \
     && rm -rf /var/lib/apt/lists/*

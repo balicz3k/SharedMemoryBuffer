@@ -9,6 +9,7 @@ target_link_libraries(unit_tests PRIVATE
     smb 
     GTest::gtest 
     GTest::gtest_main
+    GTest::gmock
 )
 
 add_test(NAME UnitTests COMMAND unit_tests)

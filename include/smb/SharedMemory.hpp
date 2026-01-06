@@ -8,11 +8,13 @@
 #include <string>
 #include <system_error>
 
+#include "IMemory.hpp"
+
 namespace smb
 {
 static constexpr uint64_t SIGNATURE{0x1234ABCD};
 
-class SharedMemory
+class SharedMemory : public IMemory
 {
     struct ControlBlock
     {
@@ -21,7 +23,7 @@ class SharedMemory
     };
 
 public:
-    SharedMemory(std::string name, size_t dataSize)
+    SharedMemory(const std::string name, const size_t dataSize)
         : bufferName(std::move(name)), dataBufferSize(dataSize), totalBufferSize(dataBufferSize + sizeof(ControlBlock))
     {
         fileDescriptor = shm_open(bufferName.c_str(), O_CREAT | O_EXCL | O_RDWR, 0666);
@@ -66,10 +68,11 @@ public:
         }
     }
 
-    [[nodiscard]] std::byte* getData() const { return dataPtr; }
-    [[nodiscard]] size_t size() const { return dataBufferSize; };
+    [[nodiscard]] const std::byte* getData() const final { return dataPtr; };
+    [[nodiscard]] std::byte* getData() final { return dataPtr; };
+    [[nodiscard]] size_t size() const final { return dataBufferSize; };
 
-    ~SharedMemory()
+    ~SharedMemory() final
     {
         auto* controlBlock{static_cast<ControlBlock*>(bufferPtr)};
         controlBlock->refCnt.fetch_sub(1);
